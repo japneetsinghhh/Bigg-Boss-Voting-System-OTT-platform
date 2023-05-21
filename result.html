@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Business website</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-highway.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="result.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  </head>
+  <body> 
+    <div>
+        <header class="header" id="top">
+          <div class="w3-top">
+            <div class="w3-bar w3-black w3-card header">
+              <a href="#top" class="w3-bar-item w3-button w3-padding-large ">Vote-Off</a>
+              <span class="w3-right">
+                <a href="#home" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Home</a>
+                <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hide-small">About</a>
+                <a href="result.html" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Result</a>
+                <a href="#profile" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Profile</a>
+                <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Contact</a>
+              </span>
+            </div>
+          </div>
+        </header>
+      </div>
+
+    <section class="hero w3-padding-large w3-container">
+      <h1 style="display: inline;"><span><i class="fa fa-check-square-o"></i></span>Viewers' ballots reveal star destiny!</h1>
+      <p>Unveiling hopes, dreams, and winners</p>
+      <a href="#contact" class="w3-padding-large w3-round">Show Results</a>
+    </section>
+    <section class="contact w3-container contact" id="contact">
+        <main>
+            <div id="myChart" style="width:100%; max-width:600px; height:500px;"></div>
+    
+            <script>
+                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.setOnLoadCallback(drawChart);
+    
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                        ['Contestant', 'Votes'],
+                        ['Sehnaaz Kaur Gill', 67],
+                        ['Siddarth Shukla', 74],
+                        ['Mahira Sharma', 34],
+                        ['Paras Chhabra', 20],
+                        ['Devoleena Bhattacharjee', 55],
+                        ['Aism Riaz',48]
+                    ]);
+                    
+    
+                    var options = {
+                        title: 'Voting Results BigBoss 2022'
+                    };
+    
+                    var chart = new google.visualization.BarChart(document.getElementById('myChart'));
+                    chart.draw(data,options);
+                }
+            </script>
+        </main>
+    
+    </section>
+
+  <script async>
+      const backToTop = document.getElementById("back-to-top");
+
+      function toggleMobileNavigation() {
+        const mobileNavigation = document.getElementById("mobile-sidenav");
+        mobileNavigation.classList.toggle('mobile-links-active');
+      }
+
+      function goToTop() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }
+
+      function scroll() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) backToTop.style.display = "block";
+        else backToTop.style.display = "none";
+      }
+
+      window.onscroll = function() {scroll()};
+  </script>
+  </body>
+</html>
