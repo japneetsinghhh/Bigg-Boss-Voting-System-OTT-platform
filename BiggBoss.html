@@ -9,12 +9,60 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="Colors.css">
   <link rel="stylesheet" href="BiggBoss.css">
-  <script>
+  <!-- <script>
     function myFunction() {
       alert("Thanks for voting!");
+      handleButtonClick();
     }
-  </script>
+  </script> -->
   <title>Bigg Boss</title>
+  <style>
+    /* CSS styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: aliceblue;
+    }
+
+    .container2 {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      font-family: 'Courier New', Courier, monospace;
+      font-weight: bold;
+      color: #0e4ab9;
+      font-size: 30px;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      margin-top: 20px;
+    }
+
+    .option {
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px;
+      background-color: aquamarine;
+      border-radius: 8px;
+    }
+
+    canvas {
+      margin-top: 20px;
+      margin-left: 40px;
+      max-width: 1000px;
+    }
+
+    #chart {
+      max-width: 1000px;
+    }
+  </style>
 </head>
 
 <body>
@@ -51,11 +99,11 @@
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTP8KAjsacisPRwODdhCOnqPoJTTlLxGeVx0dvcm0oXTEIuWvv5" />
           </div>
           <div class="content">
-            <h2>Sehnaaz Kaur Gill</h2>
+            <h2>Sehnaaz Gill</h2>
             <p class="text">An Indian actress, model and singer who works in Punjabi and Hindi television and films. She
               began her modelling career with the 2015 music video Shiv Di Kitaab.</p>
             <!-- <input class="btn" type="button" value="Vote"> -->
-            <button onclick="myFunction()">Vote</button>
+            <!-- <button id="incrementBtn1" onclick="handleButtonClick()" onclick="myFunction()">Vote</button> -->
           </div>
 
         </div>
@@ -69,7 +117,7 @@
             <p class="text">An Indian actor, host and model who appeared in Hindi television and films. He was known for
               his roles in Balika Vadhu, Broken But Beautiful 3 and Dil Se Dil Tak.</p>
             <!-- <input class="btn" type="button" value="Vote"> -->
-            <button onclick="myFunction()">Vote</button>
+            <!-- <button onclick="myFunction()">Vote</button> -->
           </div>
         </div>
         <div class="card">
@@ -82,7 +130,7 @@
             <p class="text">Mahira Sharma is a popular Indian model, film and television actress who has acted in Hindi
               language films and TV serials. She has also appeared in Hindi language reality shows.</p>
             <!-- <input class="btn" type="button" value="Vote"> -->
-            <button onclick="myFunction()">Vote</button>
+            <!-- <button onclick="myFunction()">Vote</button> -->
           </div>
         </div>
         <div class="card">
@@ -94,7 +142,7 @@
             <p class="text">An Indian model, actor and reality television personality. He is known for winning MTV
               Splitsvilla 5.</p>
             <!-- <input class="btn" type="button" value="Vote"> -->
-            <button onclick="myFunction()">Vote</button>
+            <!-- <button onclick="myFunction()">Vote</button> -->
           </div>
         </div>
         <div class="card">
@@ -107,7 +155,7 @@
             <p class="text">She is a Bharatanatyam dancer and television actress from India who is well known for her
               work in Hindi TV series.</p>
             <!-- <input class="btn" type="button" value="Vote"> -->
-            <button onclick="myFunction()">Vote</button>
+            <!-- <button onclick="myFunction()">Vote</button> -->
           </div>
         </div>
         <div class="card">
@@ -120,12 +168,123 @@
             <p class="text">Asim Riaz is an Indian model, actor, rapper and fitness specialist.He is known for being the
               face of BlackBerry, Numero Uno, and B’lue. </p>
             <!-- <input class="btn" type="button" value="Vote"> -->
-            <button onclick="myFunction()">Vote</button>
+            <!-- <button onclick="myFunction()">Vote</button> -->
           </div>
         </div>
       </div>
     </div>
+    <div class="container2">
+      <h2>Vote for Your Favorite Option</h2>
+
+      <div class="options">
+        <div class="option">
+          <label>
+            <input type="radio" name="vote" value="Sehnaaz_Gill"> Sehnaaz Gill
+          </label>
+        </div>
+
+        <div class="option">
+          <label>
+            <input type="radio" name="vote" value="Siddarth_Shukla"> Siddarth Shukla
+          </label>
+        </div>
+
+        <div class="option">
+          <label>
+            <input type="radio" name="vote" value="Mahira_Sharma"> Mahira Sharma
+          </label>
+        </div>
+
+        <div class="option">
+          <label>
+            <input type="radio" name="vote" value="Paras_Chhabra"> Paras Chhabra
+          </label>
+        </div>
+
+        <div class="option">
+          <label>
+            <input type="radio" name="vote" value="Devoleena_Bhattacharjee"> Devoleena Bhattacha
+          </label>
+        </div>
+
+        <div class="option">
+          <label>
+            <input type="radio" name="vote" value="Aism_Riaz"> Aism Riaz
+          </label>
+        </div>
+      </div>
+
+      <button onclick="submitVote()">Submit Vote</button>
+
+      <canvas id="chart" width="1000" height="500"></canvas>
+    </div>
+
+    <script>
+      // JavaScript code
+      var votes = {
+        Sehnaaz_Gill: 0,
+        Siddarth_Shukla: 0,
+        Mahira_Sharma: 0,
+        Paras_Chhabra: 0,
+        Devoleena_Bhattacharjee: 0,
+        Aism_Riaz: 0
+      };
+
+      function submitVote() {
+        var options = document.getElementsByName('vote');
+        var selectedOption;
+
+        // Find the selected option
+        for (var i = 0; i < options.length; i++) {
+          if (options[i].checked) {
+            selectedOption = options[i].value;
+            break;
+          }
+        }
+
+        if (selectedOption) {
+          // Increment the vote count
+          votes[selectedOption]++;
+
+          // Display updated results as a bar graph
+          displayResults();
+        } else {
+          alert('Please select an option before submitting.');
+        }
+      }
+
+      function displayResults() {
+        var chartCanvas = document.getElementById('chart');
+        var ctx = chartCanvas.getContext('2d');
+
+        // Clear the canvas
+        ctx.clearRect(0, 0, chartCanvas.width, chartCanvas.height);
+
+        // Set bar graph properties
+        var barWidth = 100;
+        var barSpacing = 30;
+        var x = 0;
+        var maxVotes = Math.max(...Object.values(votes));
+
+        // Draw bars based on updated vote counts
+        for (var option in votes) {
+          var barHeight = (votes[option] / maxVotes) * (chartCanvas.height - 40);
+          var barX = x * (barWidth + barSpacing);
+          var barY = chartCanvas.height - barHeight;
+
+          ctx.fillStyle = 'skyblue';
+          ctx.fillRect(barX, barY, barWidth, barHeight);
+
+          ctx.fillStyle = 'black';
+          ctx.fillText(votes[option], barX, barY - 20);
+          ctx.fillText(option, barX, chartCanvas.height - 5);
+
+          x++;
+        }
+      }
+    </script>
   </div>
+
 </body>
 
 </html>
